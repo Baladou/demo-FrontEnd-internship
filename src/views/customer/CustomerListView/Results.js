@@ -118,13 +118,13 @@ const Results = ({ className, users, ...rest }) => {
               {users.slice(0, limit).map((user) => (
                 <TableRow
                   hover
-                  key={user.id}
-                  selected={selectedUserIds.indexOf(user.id) !== -1}
+                  key={user.userId}
+                  selected={selectedUserIds.indexOf(user.userId) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedUserIds.indexOf(users.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, users.id)}
+                      checked={selectedUserIds.indexOf(user.userId) !== -1}
+                      onChange={(event) => handleSelectOne(event, user.id)}
                       value="true"
                     />
                   </TableCell>
@@ -134,16 +134,16 @@ const Results = ({ className, users, ...rest }) => {
                       display="flex"
                     >
                       <Avatar
-                        className={classes.avatar}
-                        src={user.avatarUrl}
+                         className={classes.avatar}
+                         src={user.avatarUrl}
                       >
-                        {getInitials(user.name)}
+                        {getInitials(user.lastName+" "+user.firstName)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {user.name}
+                        {user.lastName} {user.firstName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -154,13 +154,17 @@ const Results = ({ className, users, ...rest }) => {
                   {user.email}
                   </TableCell>
                   <TableCell>
-                    {user.role}
+                    {user.role.name}
                   </TableCell>
                   <TableCell>
-                    {user.supervisor}
+                  {user.supervisor!= null &&
+        <span>
+           {user.supervisor.username} 
+        </span> || <span> No-Supervisor</span>
+      }
                   </TableCell>
                   <TableCell>
-                    {moment(user.createdAt).format('DD/MM/YYYY')}
+                    {moment(user.createdDate).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
               ))}
@@ -183,7 +187,7 @@ const Results = ({ className, users, ...rest }) => {
 
 Results.propTypes = {
   className: PropTypes.string,
-  customers: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired
 };
 
 export default Results;

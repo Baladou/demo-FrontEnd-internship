@@ -1,40 +1,44 @@
-import React, { useState } from 'react';
 import {
   Box,
-  Container,
-  makeStyles
+  Container
 } from '@material-ui/core';
 import Page from '../../../components/Page';
 import Results from './Results';
 import Toolbar from './Toolbar';
-import data from './data';
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
-}));
+import {getUsers} from '../../../redux/actions/usersActions';
 
-const CustomerListView = () => {
-  const classes = useStyles();
-  const [users] = useState(data);
 
-  return (
-    <Page
-      className={classes.root}
+
+
+
+ class CustomerListView extends Component {
+    componentDidMount(){
+        this.props.getUsers()
+        //console.log( this.props.getUsers())
+        
+    }
+    render() {
+        const {users} = this.props.users
+      // console.log(users)
+        
+        return (
+          <Page
       title="Users"
     >
       <Container maxWidth={false}>
         <Toolbar />
         <Box mt={3}>
-          <Results users={users} />
+          <Results users={users}></Results>
         </Box>
       </Container>
     </Page>
-  );
-};
+        )
+    }
+}
 
-export default CustomerListView;
+const mapStateToProps  = (state) => ({users:state.users})
+
+export default connect(mapStateToProps, {getUsers})(CustomerListView)
