@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -12,6 +12,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import UserForm from './UserForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -25,30 +26,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Toolbar = ({ className, ...rest }) => {
   const classes = useStyles();
+  const [showForm, setShowform]= useState(false)
 
   return (
     <div
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-      >
-        <Button className={classes.importButton}>
-          Import
-        </Button>
-        <Button className={classes.exportButton}>
-          Export
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add user
-        </Button>
-      </Box>
-      <Box mt={3}>
+      
+      <Box mt={2}>
+      
         <Card>
           <CardContent>
             <Box maxWidth={500}>
@@ -66,12 +53,32 @@ const Toolbar = ({ className, ...rest }) => {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search customer"
+                placeholder="Search user"
                 variant="outlined"
               />
             </Box>
+            <Box
+        display="flex"
+        justifyContent="flex-end"
+        m={0}
+     
+      >
+       
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => setShowform(true)}
+        >
+          Add user
+        </Button>
+      </Box>
+            
           </CardContent>
         </Card>
+        
+      </Box>
+      <Box>
+      {showForm && <UserForm  />}
       </Box>
     </div>
   );

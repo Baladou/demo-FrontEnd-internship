@@ -77,8 +77,9 @@ const Results = ({ className, users, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
+     
       <PerfectScrollbar>
-        <Box minWidth={1050}>
+        <Box minWidth={800}>
           <Table>
             <TableHead>
               <TableRow>

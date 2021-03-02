@@ -42,6 +42,11 @@ const items = [
     title: 'Users'
   },
   {
+    href: '/roles',
+    icon: UsersIcon,
+    title: 'Roles'
+  },
+  {
     href: '/404',
     icon: AlertCircleIcon,
     title: 'Error'

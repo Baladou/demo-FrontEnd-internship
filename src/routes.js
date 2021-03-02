@@ -4,7 +4,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 
 import CustomerListView from './views/customer/CustomerListView';
 import DashboardView from './views/DashboardView';
-
+import RolesView from './views/RolesView';
 
 
 
@@ -16,6 +16,7 @@ const routes = [
      
       { path: 'users', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
+      { path: 'roles', element: <RolesView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }
