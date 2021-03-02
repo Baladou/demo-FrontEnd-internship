@@ -12,6 +12,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
@@ -43,7 +44,7 @@ const items = [
   },
   {
     href: '/roles',
-    icon: UsersIcon,
+    icon: SupervisorAccountIcon,
     title: 'Roles'
   },
   {
