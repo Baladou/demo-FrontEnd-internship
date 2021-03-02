@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState } from 'react';
 
 import {
   Box,
@@ -11,18 +11,39 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core';
+import axios from 'axios';
 
-import useRoleForm from './useRoleForm';
 
+const useStyles = makeStyles(() => ({
+  root: {}
+}));
 
-const RoleForm = () => { 
-  const display = () => {
-    alert(`Role Created!
-           Name: ${inputs.name}`);
+class RoleForm extends React.Component  {
+  constructor(props) {
+   
+    super(props);
+    this.state = {
+    name:''
+
+      
+    }
   }
-  const {inputs, handleInputChange, handleSubmit} = useRoleForm(display);
+  onNameChange(event) {
+    this.setState({name: event.target.value})
+  }
+ 
+  handleSubmit(event){
+  this.props.postRole(this.state.name);
+  window.location.reload();
+    event.preventDefault();
+   
+    
+  }
+render(){
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={this.handleSubmit.bind(this)} method="POST"
+    >
       <Card>
         <CardHeader
           title="Add a new role"
@@ -41,17 +62,17 @@ const RoleForm = () => {
               <TextField
                 fullWidth
               
-                label="Name"
+                label="Role Name"
                 name="name"
-                onChange={handleInputChange} 
-                value={inputs.name}
+                onChange={this.onNameChange.bind(this)}
                 required
+                value={this.state.name}
                 variant="outlined"
               />
             </Grid>
+            
+            
            
-      
-          
           </Grid>
           
             
@@ -65,7 +86,7 @@ const RoleForm = () => {
             variant="contained"
             type="submit"
           >
-     Add
+            Add
           </Button>
         </Box>
           </CardContent>  
@@ -75,6 +96,7 @@ const RoleForm = () => {
       </Card>
     </form>
   );
-}
+};
 
-export default RoleForm
+}
+export default RoleForm;

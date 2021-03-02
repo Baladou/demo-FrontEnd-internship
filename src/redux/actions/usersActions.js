@@ -1,5 +1,6 @@
-import {GET_USERS, USERS_ERROR} from '../types'
-import axios from 'axios'
+import {GET_USERS, USERS_ERROR,ADD_USER,ADD_ROLE} from '../types'
+import axios from 'axios';
+
 
 export const getUsers = () => async dispatch => {
     
@@ -18,3 +19,6 @@ export const getUsers = () => async dispatch => {
     }
 
 }
+
+
+

@@ -9,7 +9,7 @@ import {
   import React, { Component } from 'react'
   import {connect} from 'react-redux'
   import RoleForm from './RoleForm';
-  import {getRoles} from '../../redux/actions/rolesActions';
+  import {getRoles, postRole} from '../../redux/actions/rolesActions';
   
   
   
@@ -49,7 +49,7 @@ import {
             xl={3}
             xs={12}
           >
-          <RoleForm/>
+          <RoleForm  postRole={this.props.postRole}/>
           </Grid>
         <Grid
             item
@@ -71,4 +71,11 @@ import {
   
   const mapStateToProps  = (state) => ({roles:state.roles})
   
-  export default connect(mapStateToProps, {getRoles})(RolesView)
+  
+  const mapDispatchToProps = dispatch => ({
+    getRoles: () => dispatch(getRoles()),
+    postRole: (name) => dispatch(postRole(name)),
+    
+      });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(RolesView)
