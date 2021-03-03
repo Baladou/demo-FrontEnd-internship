@@ -25,7 +25,7 @@ class UserForm extends React.Component {
       lastName: '',
       email: '',
       roleName: '',
-      supervisorUserName: ''
+      supervisorUserName: null
     }
 
 
@@ -64,7 +64,7 @@ class UserForm extends React.Component {
      ))}*/
   }
   render() {
-    //console.log(this.props.roles)
+    console.log(this.state)
     return (
 
       <form
