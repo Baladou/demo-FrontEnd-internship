@@ -18,7 +18,7 @@ import { getRoles, postRole } from '../../redux/actions/rolesActions';
 class RolesView extends Component {
   componentDidMount() {
     this.props.getRoles()
-    //console.log( this.props.getUsers())
+
 
   }
   render() {

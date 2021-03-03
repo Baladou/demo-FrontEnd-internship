@@ -52,19 +52,15 @@ class UserForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     this.props.postUser(this.state.username, this.state.firstName, this.state.lastName, this.state.email, this.state.roleName,
       this.state.supervisorUserName);
 
-
-    console.log("this is users comp " + this.props.errMessAddUser)
-    if (this.props.errMessAddUser) {
-      alert(this.props.errMessAddUser.message)
-    }
     //console.log("this is users comp " + this.props.errMessAddUser.message)
-    //window.location.reload();
+    window.location.reload();
 
 
-    event.preventDefault();
+
   }
   render() {
 

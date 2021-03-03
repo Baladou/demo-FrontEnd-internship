@@ -158,11 +158,7 @@ const Results = ({ className, users, ...rest }) => {
                     {user.role.name}
                   </TableCell>
                   <TableCell>
-                    {user.supervisor != null &&
-                      <span>
-                        {user.supervisor.username}
-                      </span> || <span> No-Supervisor</span>
-                    }
+                    {user.supervisor != null && <span>{user.supervisor.username}</span> || <span> No-Supervisor</span>}
                   </TableCell>
                   <TableCell>
                     {moment(user.createdDate).format('DD/MM/YYYY')}

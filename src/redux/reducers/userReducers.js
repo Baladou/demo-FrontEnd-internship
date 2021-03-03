@@ -1,10 +1,7 @@
 import * as ActionTypes from '../types';
 
 
-const initialState = {
-    users: [],
-    loading: true
-}
+
 
 export const users = (state = {
     isLoading: true,

@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {
-  Avatar,
   Box,
-  Button,
+
   Divider,
   Drawer,
   Hidden,
   List,
-  Typography,
+
   makeStyles
 } from '@material-ui/core';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import {
 
   BarChart as BarChartIcon,
   Users as UsersIcon
 } from 'react-feather';
+import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
 

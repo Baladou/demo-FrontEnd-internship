@@ -38,9 +38,9 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
     data: newUser
   }).then(response => {
     console.log(response.status);
-    if (response.status == 201) {
+    if (response.status == 200) {
       dispatch(addUserSuccess(response))
-
+      alert("user created successfully")
     }
     else {
 
@@ -49,8 +49,7 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
   })
     .catch((err) => {
       dispatch(addUserFailed(err.response.data))
-      console.log(err.response.data.message);
-      console.log(err.response.data.status);
+      alert(err.response.data.message)
     })
 
 
