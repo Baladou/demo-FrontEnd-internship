@@ -23,18 +23,19 @@ class CustomerListView extends Component {
 
   }
   render() {
-    const { users } = this.props.users
-    const { roles } = this.props.roles
-    //console.log(roles)
+    /* const { users } = this.props.users
+     const { roles } = this.props.roles
+     const { errMessAddUser } = this.props.errMessAddUser*/
+    //console.log(this.props.users.errMessAddUser)
 
     return (
       <Page
         title="Users"
       >
         <Container maxWidth={false}>
-          <Toolbar postUser={this.props.postUser} roles={roles} />
+          <Toolbar postUser={this.props.postUser} roles={this.props.roles.roles} errMessAddUser={this.props.users.errMessAddUser} />
           <Box mt={3}>
-            <Results users={users}></Results>
+            <Results users={this.props.users.users}></Results>
 
           </Box>
         </Container>
@@ -43,7 +44,10 @@ class CustomerListView extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ users: state.users, roles: state.roles })
+const mapStateToProps = (state) => ({
+  users: state.users, roles: state.roles,
+  //errMessAddUser: state.users.errMessAddUser
+})
 
 
 

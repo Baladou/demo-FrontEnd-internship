@@ -6,7 +6,11 @@ const initialState = {
     loading: true
 }
 
-export default function (state = initialState, action) {
+export const users = (state = {
+    isLoading: true,
+    errMessAddUser: null,
+    users: []
+}, action) => {
 
     switch (action.type) {
 
@@ -19,8 +23,9 @@ export default function (state = initialState, action) {
             }
         case ActionTypes.ADD_USER:
             var user = action.payload;
-
             return { ...state, user: state.users.concat(user) };
+        case ActionTypes.ADD_USER_ERROR:
+            return { ...state, errMessAddUser: action.payload };
         default: return state
     }
 

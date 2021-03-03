@@ -37,18 +37,27 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
     url: "http://localhost:8084/api/users",
     data: newUser
   }).then(response => {
-    if (response.status == 201) {
-      return response;
-    } else {
-      var error = new Error('Error ' + response.status + ': ' + response.statusText);
-      error.response = response;
-      throw error;
-    }
+
+    dispatch(addUserSuccess(response))
   })
+    .catch((err) => {
+      dispatch(addUserFailed(err.response.data))
+      console.log(err.response.data);
+    })
+
+
+
 
 };
 
-export const addUser = (user) => ({
+export const addUserSuccess = (user) => ({
   type: ActionTypes.ADD_USER,
   payload: user
 });
+
+function addUserFailed(err) {
+  return {
+    type: ActionTypes.ADD_USER_ERROR,
+    payload: err
+  }
+}

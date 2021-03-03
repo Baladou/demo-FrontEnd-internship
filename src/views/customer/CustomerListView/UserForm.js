@@ -54,17 +54,16 @@ class UserForm extends React.Component {
     this.props.postUser(this.state.username, this.state.firstName, this.state.lastName, this.state.email, this.state.roleName,
       this.state.supervisorUserName);
 
-    window.location.reload();
+    //window.location.reload();
     event.preventDefault();
-
-    /* {this.props.roles.map((role) => (
-       <MenuItem value={"None"}>{role.name}</MenuItem>
-       
-     
-     ))}*/
+    //console.log("this is users comp " + this.props.errMessAddUser.message)
+    if (this.props.errMessAddUser != null) {
+      alert(this.props.errMessAddUser.message)
+      console.log("this is users comp " + this.props.errMessAddUser.message)
+    }
   }
   render() {
-    console.log(this.state)
+
     return (
 
       <form
