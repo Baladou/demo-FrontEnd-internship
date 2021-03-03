@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
 const Results = ({ className, users, ...rest }) => {
   const classes = useStyles();
   const [selectedUserIds, setselectedUserIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
     let newselectedUserIds;
 
     if (event.target.checked) {
-      newselectedUserIds = users.map((user) => user.id);
+      newselectedUserIds = users.map((user) => user.userId);
     } else {
       newselectedUserIds = [];
     }
@@ -116,7 +116,7 @@ const Results = ({ className, users, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.slice(0, limit).map((user) => (
+              {users.slice(page * limit, page * limit + limit).map((user) => (
                 <TableRow
                   hover
                   key={user.userId}
@@ -125,7 +125,7 @@ const Results = ({ className, users, ...rest }) => {
                   <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedUserIds.indexOf(user.userId) !== -1}
-                      onChange={(event) => handleSelectOne(event, user.id)}
+                      onChange={(event) => handleSelectOne(event, user.userId)}
                       value="true"
                     />
                   </TableCell>

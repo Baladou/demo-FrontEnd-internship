@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const RolesDisplay = ({ className, roles, ...rest }) => {
   const classes = useStyles();
   const [selectedroleIds, setselectedroleIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
@@ -107,15 +107,15 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {roles.slice(0, limit).map((role) => (
+              {roles.slice(page * limit, page * limit + limit).map((role) => (
                 <TableRow
                   hover
                   key={role.roleId}
-                  selected={selectedroleIds.indexOf(role.roleId) !== -1}
+                  selected={selectedroleIds.indexOf(role.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedroleIds.indexOf(role.roleId) !== -1}
+                      checked={selectedroleIds.indexOf(role.id) !== -1}
                       onChange={(event) => handleSelectOne(event, role.id)}
                       value="true"
                     />

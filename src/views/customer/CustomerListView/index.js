@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 
 import { getUsers, postUser } from '../../../redux/actions/usersActions';
 import { getRoles } from '../../../redux/actions/rolesActions';
-import UsersDisplay from './UsersDisplay';
+
 
 
 
@@ -35,7 +35,7 @@ class CustomerListView extends Component {
           <Toolbar postUser={this.props.postUser} roles={roles} />
           <Box mt={3}>
             <Results users={users}></Results>
-            <UsersDisplay users={users} ></UsersDisplay>
+
           </Box>
         </Container>
       </Page>

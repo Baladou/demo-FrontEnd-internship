@@ -10,7 +10,7 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
-
+import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import React from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -142,24 +142,29 @@ class UserForm extends React.Component {
 
               <Grid
                 item
-                lg={12}
+                lg={6}
                 md={6}
                 xs={12}
               >
+                <FormControl variant="outlined" fullWidth required >
+                  <InputLabel id="demo-simple-select-filled-label">Role Name</InputLabel>
+                  <Select
 
-                <InputLabel id="demo-simple-select-label">Role Name</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={this.state.roleName}
-                  onChange={this.onRoleNameChange.bind(this)}
-                >
-                  {this.props.roles.map((role) => (
-                    <MenuItem value={role.name}>{role.name}</MenuItem>
+                    labelId="demo-simple-select-filled-label"
+                    id="demo-simple-select"
+                    value={this.state.roleName}
+                    onChange={this.onRoleNameChange.bind(this)}
+                    variant="outlined"
 
 
-                  ))}
-                </Select>
+                  >
+                    {this.props.roles.map((role) => (
+                      <MenuItem value={role.name}>{role.name}</MenuItem>
+
+
+                    ))}
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid
                 item
