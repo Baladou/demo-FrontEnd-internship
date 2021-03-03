@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -24,18 +24,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Toolbar = ({ className, ...rest }) => {
+const Toolbar = (props) => {
   const classes = useStyles();
-  const [showForm, setShowform]= useState(false)
-
+  const [showForm, setShowform] = useState(false)
+  //console.log(props.roles)
   return (
+
+
     <div
-      className={clsx(classes.root, className)}
-      {...rest}
+      className={clsx(classes.root)}
+
     >
-      
+
       <Box mt={2}>
-      
+
         <Card>
           <CardContent>
             <Box maxWidth={500}>
@@ -58,27 +60,27 @@ const Toolbar = ({ className, ...rest }) => {
               />
             </Box>
             <Box
-        display="flex"
-        justifyContent="flex-end"
-        m={0}
-     
-      >
-       
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => setShowform(true)}
-        >
-          Add user
+              display="flex"
+              justifyContent="flex-end"
+              m={0}
+
+            >
+
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => setShowform(true)}
+              >
+                Add user
         </Button>
-      </Box>
-            
+            </Box>
+
           </CardContent>
         </Card>
-        
+
       </Box>
       <Box>
-      {showForm && <UserForm  />}
+        {showForm && <UserForm postUser={props.postUser} roles={props.roles} />}
       </Box>
     </div>
   );

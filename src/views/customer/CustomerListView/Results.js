@@ -77,7 +77,7 @@ const Results = ({ className, users, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
-     
+
       <PerfectScrollbar>
         <Box minWidth={800}>
           <Table>
@@ -106,7 +106,7 @@ const Results = ({ className, users, ...rest }) => {
                 <TableCell>
                   Role
                 </TableCell>
-               
+
                 <TableCell>
                   Supervisor
                 </TableCell>
@@ -135,10 +135,10 @@ const Results = ({ className, users, ...rest }) => {
                       display="flex"
                     >
                       <Avatar
-                         className={classes.avatar}
-                         src={user.avatarUrl}
+                        className={classes.avatar}
+                        src={user.avatarUrl}
                       >
-                        {getInitials(user.lastName+" "+user.firstName)}
+                        {getInitials(user.lastName + " " + user.firstName)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
@@ -152,17 +152,17 @@ const Results = ({ className, users, ...rest }) => {
                     {user.username}
                   </TableCell>
                   <TableCell>
-                  {user.email}
+                    {user.email}
                   </TableCell>
                   <TableCell>
                     {user.role.name}
                   </TableCell>
                   <TableCell>
-                  {user.supervisor!= null &&
-        <span>
-           {user.supervisor.username} 
-        </span> || <span> No-Supervisor</span>
-      }
+                    {user.supervisor != null &&
+                      <span>
+                        {user.supervisor.username}
+                      </span> || <span> No-Supervisor</span>
+                    }
                   </TableCell>
                   <TableCell>
                     {moment(user.createdDate).format('DD/MM/YYYY')}

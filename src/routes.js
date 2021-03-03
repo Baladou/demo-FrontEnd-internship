@@ -17,7 +17,7 @@ const routes = [
       { path: 'users', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'roles', element: <RolesView /> },
-      { path: '*', element: <Navigate to="/404" /> }
+      
     ]
   }
 ];

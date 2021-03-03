@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Box,
@@ -13,85 +13,85 @@ import {
 
 
 
-class RoleForm extends React.Component  {
+class RoleForm extends React.Component {
   constructor(props) {
-   
+
     super(props);
     this.state = {
-    name:''
+      name: ''
 
-      
+
     }
   }
   onNameChange(event) {
-    this.setState({name: event.target.value})
+    this.setState({ name: event.target.value })
   }
- 
-  handleSubmit(event){
-  this.props.postRole(this.state.name);
-  window.location.reload();
-    event.preventDefault();
-   
-    
+
+  handleSubmit(event) {
+    this.props.postRole(this.state.name);
+    window.location.reload();
+
+
+
   }
-render(){
-  return (
-    <form
-      onSubmit={this.handleSubmit.bind(this)} method="POST"
-    >
-      <Card>
-        <CardHeader
-          title="Add a new role"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={6}
-          >
+  render() {
+    return (
+      <form
+        onSubmit={this.handleSubmit.bind(this)} method="POST"
+      >
+        <Card>
+          <CardHeader
+            title="Add a new role"
+          />
+          <Divider />
+          <CardContent>
             <Grid
-              item
-              md={6}
-              xs={12}
+              container
+              spacing={6}
             >
-              <TextField
-                fullWidth
-              
-                label="Role Name"
-                name="name"
-                onChange={this.onNameChange.bind(this)}
-                required
-                value={this.state.name}
-                variant="outlined"
-              />
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+
+                  label="Role Name"
+                  name="name"
+                  onChange={this.onNameChange.bind(this)}
+                  required
+                  value={this.state.name}
+                  variant="outlined"
+                />
+              </Grid>
+
+
+
             </Grid>
-            
-            
-           
-          </Grid>
-          
-            
-               <Box
-          display="flex"
-          justifyContent="flex-end"
-          p={2}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-          >
-            Add
+
+
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              p={2}
+            >
+              <Button
+                color="primary"
+                variant="contained"
+                type="submit"
+              >
+                Add
           </Button>
-        </Box>
-          </CardContent>  
-        <Divider />
-       
-         
-      </Card>
-    </form>
-  );
-};
+            </Box>
+          </CardContent>
+          <Divider />
+
+
+        </Card>
+      </form>
+    );
+  };
 
 }
 export default RoleForm;

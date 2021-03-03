@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar,
+
   Box,
-  Grid,
+
   Card,
   CardHeader,
   Checkbox,
@@ -75,7 +75,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
   };
 
   return (
-    
+
     <Card
       className={clsx(classes.root, className)}
       {...rest}
@@ -103,7 +103,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
                 <TableCell>
                   Role Name
                 </TableCell>
-                
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -125,7 +125,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
                       alignItems="center"
                       display="flex"
                     >
-                      
+
                       <Typography
                         color="textPrimary"
                         variant="body1"
@@ -137,7 +137,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
                   <TableCell>
                     {role.name}
                   </TableCell>
-                  
+
                 </TableRow>
               ))}
             </TableBody>
