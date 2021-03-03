@@ -37,12 +37,20 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
     url: "http://localhost:8084/api/users",
     data: newUser
   }).then(response => {
+    console.log(response.status);
+    if (response.status == 201) {
+      dispatch(addUserSuccess(response))
 
-    dispatch(addUserSuccess(response))
+    }
+    else {
+
+
+    }
   })
     .catch((err) => {
       dispatch(addUserFailed(err.response.data))
-      console.log(err.response.data);
+      console.log(err.response.data.message);
+      console.log(err.response.data.status);
     })
 
 

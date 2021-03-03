@@ -50,17 +50,21 @@ class UserForm extends React.Component {
   onSupervisorUserNameChange(event) {
     this.setState({ supervisorUserName: event.target.value })
   }
+
   handleSubmit(event) {
     this.props.postUser(this.state.username, this.state.firstName, this.state.lastName, this.state.email, this.state.roleName,
       this.state.supervisorUserName);
 
-    //window.location.reload();
-    event.preventDefault();
-    //console.log("this is users comp " + this.props.errMessAddUser.message)
-    if (this.props.errMessAddUser != null) {
+
+    console.log("this is users comp " + this.props.errMessAddUser)
+    if (this.props.errMessAddUser) {
       alert(this.props.errMessAddUser.message)
-      console.log("this is users comp " + this.props.errMessAddUser.message)
     }
+    //console.log("this is users comp " + this.props.errMessAddUser.message)
+    //window.location.reload();
+
+
+    event.preventDefault();
   }
   render() {
 

@@ -16,14 +16,14 @@ export const users = (state = {
 
         case ActionTypes.GET_USERS:
             return {
-                ...state,
+                ...state, isLoading: true, errMessAddUser: null,
                 users: action.payload,
                 loading: false
 
             }
         case ActionTypes.ADD_USER:
             var user = action.payload;
-            return { ...state, user: state.users.concat(user) };
+            return { ...state, users: state.users.concat(user) };
         case ActionTypes.ADD_USER_ERROR:
             return { ...state, errMessAddUser: action.payload };
         default: return state
