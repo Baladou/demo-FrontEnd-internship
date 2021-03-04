@@ -28,8 +28,12 @@ class RoleForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     this.props.postRole(this.state.name);
-    window.location.reload();
+    //window.location.reload();
+    this.setState({
+      name: ''
+    });
 
 
 

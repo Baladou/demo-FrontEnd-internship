@@ -22,6 +22,12 @@ class CustomerListView extends Component {
 
 
   }
+  componentDidUpdate() {
+    this.props.getUsers()
+    //this.props.getRoles()
+
+
+  }
   render() {
     /* const { users } = this.props.users
      const { roles } = this.props.roles

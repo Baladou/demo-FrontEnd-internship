@@ -29,7 +29,29 @@ export const postRole = (name) => (dispatch) => {
     url: "http://localhost:8084/api/roles",
     data: newRole
   }).then(response => {
-    if (response.status == 201) {
+    console.log(response.data);
+
+    if (response.data.status == 201) {
+      dispatch(addRole(response.data.result))
+      alert("Role created successfully")
+    }
+    else if (response.data.status == 400) { alert("Error: " + response.data.result.message) }
+  })
+};
+
+export const addRole = (role) => ({
+  type: ActionTypes.ADD_ROLE,
+  payload: role
+});
+
+export const deleteRole = (id) => (dispatch) => {
+
+
+  return axios({
+    method: "DELETE",
+    url: `http://localhost:8084/api/roles/${id}`
+  }).then(response => {
+    if (response.status == 200) {
       return response;
     } else {
       var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -39,9 +61,3 @@ export const postRole = (name) => (dispatch) => {
   })
 
 };
-
-export const addRole = (role) => ({
-  type: ActionTypes.ADD_ROLE,
-  payload: role
-});
-
