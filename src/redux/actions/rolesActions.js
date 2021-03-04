@@ -51,13 +51,13 @@ export const deleteRole = (id) => (dispatch) => {
     method: "DELETE",
     url: `http://localhost:8084/api/roles/${id}`
   }).then(response => {
-    if (response.status == 200) {
-      return response;
-    } else {
-      var error = new Error('Error ' + response.status + ': ' + response.statusText);
-      error.response = response;
-      throw error;
-    }
-  })
+    console.log(response.data);
 
+    if (response.data.status == 200) {
+      dispatch(deleteRole(response.data.result))
+      alert("Role deleted  successfully")
+    }
+    else if (response.data.status == 400) { alert("Error: " + response.data.result.message) }
+  })
 };
+

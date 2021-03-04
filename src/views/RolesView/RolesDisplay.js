@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RolesDisplay = ({ className, roles, ...rest }) => {
+const RolesDisplay = (props) => {
   const classes = useStyles();
   const [selectedroleIds, setselectedroleIds] = useState([]);
   const [limit, setLimit] = useState(5);
@@ -76,8 +76,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
   return (
 
     <Card
-      className={clsx(classes.root, className)}
-      {...rest}
+
     >
       <CardHeader title="Roles" />
       <PerfectScrollbar>
@@ -99,7 +98,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {roles.slice(page * limit, page * limit + limit).map((role) => (
+              {props.roles.slice(page * limit, page * limit + limit).map((role) => (
                 <TableRow
                   hover
                   key={role.roleId}
@@ -124,7 +123,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
                     {role.name}
                   </TableCell>
                   <TableCell>
-                    <IconButton aria-label="delete" >
+                    <IconButton aria-label="delete" onClick={() => props.deleteRole(role.id)} >
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
@@ -137,7 +136,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={roles.length}
+        count={props.roles.length}
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleLimitChange}
         page={page}
