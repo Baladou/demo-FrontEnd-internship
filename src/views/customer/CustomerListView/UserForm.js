@@ -98,6 +98,7 @@ class UserForm extends React.Component {
                 xs={12}
               >
                 <TextField
+                  defaultValue="This is the default value"
                   fullWidth
                   label="Username"
                   name="username"
@@ -107,6 +108,7 @@ class UserForm extends React.Component {
                   variant="outlined"
                 />
               </Grid>
+
               <Grid
                 item
                 md={6}
@@ -183,14 +185,27 @@ class UserForm extends React.Component {
                 md={6}
                 xs={12}
               >
-                <TextField
-                  fullWidth
-                  label="Supervisor username"
-                  name="supervisorUserName"
-                  onChange={this.onSupervisorUserNameChange.bind(this)}
-                  value={this.state.supervisorUserName}
-                  variant="outlined"
-                />
+                <FormControl variant="outlined" fullWidth required >
+                  <InputLabel id="demo-simple-select-filled-label">Supervisor username</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-filled-label"
+                    id="demo-simple-select"
+                    fullWidth
+                    onChange={this.onSupervisorUserNameChange.bind(this)}
+                    value={this.state.supervisorUserName}
+                    variant="outlined"
+
+
+                  >
+                    {this.props.users.map((user) => (
+                      <MenuItem value={user.username}>{user.username}</MenuItem>
+
+
+                    ))}
+                  </Select>
+                </FormControl>
+
               </Grid>
 
             </Grid>

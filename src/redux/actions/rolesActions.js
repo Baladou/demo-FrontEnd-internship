@@ -46,7 +46,7 @@ export const addRole = (role) => ({
 
 export const deleteRole = (id) => (dispatch) => {
 
-
+  console.log("test red")
   return axios({
     method: "DELETE",
     url: `http://localhost:8084/api/roles/${id}`
@@ -54,7 +54,7 @@ export const deleteRole = (id) => (dispatch) => {
     console.log(response.data);
 
     if (response.data.status == 200) {
-      dispatch(deleteRole(response.data.result))
+      //dispatch(deleteRole(response.data.result))
       alert("Role deleted  successfully")
     }
     else if (response.data.status == 400) { alert("Error: " + response.data.result.message) }

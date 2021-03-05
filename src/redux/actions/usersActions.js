@@ -44,7 +44,12 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
       alert("user created successfully")
     }
     else if (response.data.status == 400) { alert("Error " + response.data.result.message) }
+    else { }
   })
+    .catch(err => {
+      console.log(err);
+      alert("Error " + err.response)
+    })
 
 
 
@@ -63,5 +68,61 @@ function addUserFailed(err) {
     payload: err
   }
 }
+export const deleteUser = (id) => (dispatch) => {
 
+
+  return axios({
+    method: "DELETE",
+    url: `http://localhost:8084/api/users/${id}`
+  }).then(response => {
+    console.log(response.data);
+
+    if (response.data.status == 200) {
+
+      alert("User deleted  successfully")
+    }
+    else if (response.data.status == 400) { alert("Error: " + response.data.result.message) }
+
+  })
+    .catch(err => {
+      //console.log(err.status);
+      alert("Error: You can not delete this User because he is the supervisor of onother user.")
+    })
+};
+
+
+export const updateUser = (id, username, firstName, lastName, email, roleName, supervisorUserName) => (dispatch) => {
+
+  const newUser = {
+    username: username,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    role: { name: roleName },
+    supervisor: (supervisorUserName ? { username: supervisorUserName } : null)
+  };
+
+  return axios({
+    method: "PUT",
+    url: `http://localhost:8084/api/users/${id}`,
+    data: newUser
+  }).then(response => {
+
+
+    if (response.data.status == 204) {
+      //console.log(response.data.status)
+      alert("user Updated successfully")
+    }
+    else if (response.data.status == 400) { //console.log(response.data.status); 
+      alert("Error:  " + response.data.result.message)
+    }
+    else { alert("Error:  " + response.data.status + " " + response.data.result.message) }
+  })
+    .catch(err => {
+      //console.log(err);
+      alert("Error: " + err.response)
+    })
+
+
+};
 

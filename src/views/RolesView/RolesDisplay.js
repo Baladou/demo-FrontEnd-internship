@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';

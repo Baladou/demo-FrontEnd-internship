@@ -3,6 +3,10 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import EditForm from './EditForm'
 import {
   Avatar,
   Box,
@@ -26,11 +30,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className, users, ...rest }) => {
+const Results = (props) => {
   const classes = useStyles();
   const [selectedUserIds, setselectedUserIds] = useState([]);
+  const [selectedUserId, setselectedUserId] = useState({});
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
+  const [showForm, setShowform] = useState(false)
+  const SetUserEdit = (user) => {
+    setShowform(!showForm);
+    setselectedUserId(user)
+
+  }
   /*
     const handleSelectAll = (event) => {
       let newselectedUserIds;
@@ -74,10 +85,11 @@ const Results = ({ className, users, ...rest }) => {
 
   return (
     <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
 
+    >
+      <Box>
+        {showForm && <EditForm roles={props.roles} user={selectedUserId} updateUser={props.updateUser} />}
+      </Box>
       <PerfectScrollbar>
         <Box minWidth={800}>
           <Table>
@@ -103,10 +115,12 @@ const Results = ({ className, users, ...rest }) => {
                 <TableCell>
                   Creation date
                 </TableCell>
+                <TableCell>Delete User</TableCell>
+                <TableCell>Update User</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.slice(page * limit, page * limit + limit).map((user) => (
+              {props.users.slice(page * limit, page * limit + limit).map((user) => (
                 <TableRow
                   hover
                   key={user.userId}
@@ -147,6 +161,18 @@ const Results = ({ className, users, ...rest }) => {
                   <TableCell>
                     {moment(user.createdDate).format('DD/MM/YYYY')}
                   </TableCell>
+                  <TableCell>
+                    <IconButton aria-label="delete" onClick={() => props.deleteUser(user.userId)} >
+
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton aria-label="Edit" onClick={() => SetUserEdit(user)} >
+
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -155,7 +181,7 @@ const Results = ({ className, users, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={users.length}
+        count={props.users.length}
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleLimitChange}
         page={page}

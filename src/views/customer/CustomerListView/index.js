@@ -8,7 +8,7 @@ import Toolbar from './Toolbar';
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getUsers, postUser } from '../../../redux/actions/usersActions';
+import { getUsers, postUser, deleteUser, updateUser } from '../../../redux/actions/usersActions';
 import { getRoles } from '../../../redux/actions/rolesActions';
 
 
@@ -39,9 +39,9 @@ class CustomerListView extends Component {
         title="Users"
       >
         <Container maxWidth={false}>
-          <Toolbar postUser={this.props.postUser} roles={this.props.roles.roles} errMessAddUser={this.props.users.errMessAddUser} />
+          <Toolbar users={this.props.users.users} postUser={this.props.postUser} roles={this.props.roles.roles} errMessAddUser={this.props.users.errMessAddUser} />
           <Box mt={3}>
-            <Results users={this.props.users.users}></Results>
+            <Results users={this.props.users.users} deleteUser={this.props.deleteUser} updateUser={this.props.updateUser} roles={this.props.roles.roles}></Results>
 
           </Box>
         </Container>
@@ -62,6 +62,9 @@ const mapDispatchToProps = dispatch => ({
   getRoles: () => dispatch(getRoles()),
   postUser: (username, firstName, lastName, email, roleName, supervisorUserName) =>
     dispatch(postUser(username, firstName, lastName, email, roleName, supervisorUserName)),
+  deleteUser: (id) => dispatch(deleteUser(id)),
+  updateUser: (id, username, firstName, lastName, email, roleName, supervisorUserName) =>
+    dispatch(updateUser(id, username, firstName, lastName, email, roleName, supervisorUserName)),
 
 });
 

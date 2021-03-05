@@ -80,7 +80,7 @@ const Toolbar = (props) => {
 
       </Box>
       <Box>
-        {showForm && <UserForm postUser={props.postUser} roles={props.roles} errMessAddUser={props.errMessAddUser} />}
+        {showForm && <UserForm users={props.users} postUser={props.postUser} roles={props.roles} errMessAddUser={props.errMessAddUser} />}
       </Box>
     </div>
   );
