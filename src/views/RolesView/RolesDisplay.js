@@ -17,7 +17,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-
+import EditIcon from '@material-ui/icons/Edit';
+import EditRoleForm from './EditRoleForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -31,7 +32,16 @@ const RolesDisplay = (props) => {
   const [selectedroleIds, setselectedroleIds] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
-  /*
+  const [selectedRole, setselectedRole] = useState({});
+  const [showForm, setShowform] = useState(false)
+
+  const SetRoleEdit = (role) => {
+    setShowform(!showForm);
+    setselectedRole(role)
+
+  }
+  /*$
+
     const handleSelectAll = (event) => {
       let newselectedroleIds;
   
@@ -77,6 +87,9 @@ const RolesDisplay = (props) => {
     <Card
 
     >
+      <Box>
+        {showForm && <EditRoleForm role={selectedRole} updateRole={props.updateRole} />}
+      </Box>
       <CardHeader title="Roles" />
       <PerfectScrollbar>
         <Box minWidth={800}>
@@ -93,7 +106,7 @@ const RolesDisplay = (props) => {
                 <TableCell>
                   Delete Role
                 </TableCell>
-
+                <TableCell>Update User</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -126,7 +139,12 @@ const RolesDisplay = (props) => {
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
+                  <TableCell>
+                    <IconButton aria-label="Edit" onClick={() => SetRoleEdit(role)} >
 
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

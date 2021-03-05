@@ -36,7 +36,11 @@ const items = [
     href: '/roles',
     icon: SupervisorAccountIcon,
     title: 'Roles'
-  }
+  },
+  {
+    href: '/test',
+    title: 'Test'
+  },
 ];
 
 const useStyles = makeStyles(() => ({

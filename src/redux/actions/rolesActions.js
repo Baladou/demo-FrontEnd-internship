@@ -61,3 +61,32 @@ export const deleteRole = (id) => (dispatch) => {
   })
 };
 
+export const updateRole = (id, name) => (dispatch) => {
+
+  const newRole = {
+    name: name
+  };
+
+  return axios({
+    method: "PUT",
+    url: `http://localhost:8084/api/roles/${id}`,
+    data: newRole
+  }).then(response => {
+
+
+    if (response.data.status == 200) {
+
+      alert("user Updated successfully")
+    }
+    else if (response.data.status == 400) {
+      alert("Error:  " + response.data.result.message)
+    }
+    else { alert("Error:  " + response.data.status + " " + response.data.result.message) }
+  })
+    .catch(err => {
+      //console.log(err);
+      alert("Error: " + err.response)
+    })
+
+
+};

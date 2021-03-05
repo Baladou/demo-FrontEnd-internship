@@ -7,7 +7,7 @@ import Results from './Results';
 import Toolbar from './Toolbar';
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import Test from './test'
 import { getUsers, postUser, deleteUser, updateUser } from '../../../redux/actions/usersActions';
 import { getRoles } from '../../../redux/actions/rolesActions';
 

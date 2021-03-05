@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import EditForm from './EditForm'
 import {
   Avatar,
   Box,
   Card,
-
-  Table,
+  makeStyles, Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
-  makeStyles
+
+
+  TableSortLabel, Typography
 } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import getInitials from '../../../utils/getInitials';
+import EditForm from './EditForm';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -34,12 +35,25 @@ const Results = (props) => {
   const classes = useStyles();
   const [selectedUserIds, setselectedUserIds] = useState([]);
   const [selectedUserId, setselectedUserId] = useState({});
+
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
   const [showForm, setShowform] = useState(false)
+  const [order, setOrder] = useState()
+  const [orderBy, setOrderBy] = useState()
   const SetUserEdit = (user) => {
     setShowform(!showForm);
     setselectedUserId(user)
+
+  }
+
+  const handleSort = (tableHeader) => {
+    // is the sort orderBy Changed??
+    console.log('table header ', tableHeader, 'orderby ', orderBy);
+    if (orderBy !== tableHeader)
+      setOrderBy(tableHeader);
+    else
+      setOrder(order === 'asc' ? 'desc' : 'asc');
 
   }
   /*
@@ -90,14 +104,16 @@ const Results = (props) => {
       <Box>
         {showForm && <EditForm roles={props.roles} user={selectedUserId} updateUser={props.updateUser} />}
       </Box>
+
       <PerfectScrollbar>
         <Box minWidth={800}>
           <Table>
             <TableHead>
               <TableRow>
 
-                <TableCell>
-                  Name
+                <TableCell >
+                  <TableSortLabel onClick={() => handleSort('name')} >Name</TableSortLabel>
+
                 </TableCell>
                 <TableCell>
                   Username
