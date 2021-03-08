@@ -41,14 +41,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = (props) => {
   const classes = useStyles();
-  const [selectedUserIds, setselectedUserIds] = useState([]);
-  const [selectedUserId, setselectedUserId] = useState({});
 
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
+  const [selectedUserId, setselectedUserId] = useState({});
+  const [selectionModel, setSelectionModel] = React.useState([]);
+
   const [showForm, setShowform] = useState(false)
-  const [order, setOrder] = useState()
-  const [orderBy, setOrderBy] = useState()
+
   const SetUserEdit = (user) => {
     setShowform(!showForm);
     setselectedUserId(user)
@@ -58,16 +56,9 @@ const Results = (props) => {
     user.id = user.userId; user.rolename = user.role.name;
     user.supervisorUsername = (user.supervisor ? user.supervisor.username : 'No-supervisor');;
   })
+  //console.log(selectionModel)
 
 
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
 
   return (
 
@@ -78,7 +69,17 @@ const Results = (props) => {
         {showForm && <EditForm roles={props.roles} user={selectedUserId} updateUser={props.updateUser} />}
       </Box>
       <div style={{ height: 500, width: '100%' }}>
-        <DataGrid Height="Auto" rows={props.users} columns={columns} rowsPerPageOptions={[5, 10, 25]} pageSize={5} checkboxSelection />
+        <DataGrid Height="Auto"
+          rows={props.users}
+          columns={columns}
+          rowsPerPageOptions={[5, 10, 25]}
+          pageSize={5}
+          checkboxSelection
+          onSelectionModelChange={(newSelection) => {
+            setSelectionModel(newSelection.selectionModel);
+          }}
+          selectionModel={selectionModel}
+        />
       </div>
 
     </Card>
