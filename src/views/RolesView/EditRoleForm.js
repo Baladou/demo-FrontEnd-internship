@@ -30,10 +30,7 @@ class EditRoleForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.updateRole(this.props.role.id, this.state.name);
-        //window.location.reload();
-        /*this.setState({
-            name: ''
-        });*/
+
 
 
 

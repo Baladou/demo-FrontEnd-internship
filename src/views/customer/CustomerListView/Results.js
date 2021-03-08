@@ -23,6 +23,28 @@ import getInitials from '../../../utils/getInitials';
 import EditForm from './EditForm';
 
 
+import { DataGrid } from '@material-ui/data-grid';
+const columns = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'firstName', headerName: 'First name', width: 130 },
+  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'username', headerName: 'username', width: 130 },
+  { field: 'email', headerName: 'Email', width: 200 },
+  {
+    field: 'rolename',
+    headerName: 'Role Name',
+    width: 130
+  },
+  {
+    field: 'supervisorUsername',
+    headerName: 'Supervisor Username',
+    width: 200,
+
+  },
+
+
+];
+
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -46,49 +68,13 @@ const Results = (props) => {
     setselectedUserId(user)
 
   }
+  props.users.map((user) => {
+    user.id = user.userId; user.rolename = user.role.name;
+    user.supervisorUsername = (user.supervisor ? user.supervisor.username : 'No-supervisor');;
+  })
 
-  const handleSort = (tableHeader) => {
-    // is the sort orderBy Changed??
-    console.log('table header ', tableHeader, 'orderby ', orderBy);
-    if (orderBy !== tableHeader)
-      setOrderBy(tableHeader);
-    else
-      setOrder(order === 'asc' ? 'desc' : 'asc');
 
-  }
-  /*
-    const handleSelectAll = (event) => {
-      let newselectedUserIds;
-  
-      if (event.target.checked) {
-        newselectedUserIds = users.map((user) => user.userId);
-      } else {
-        newselectedUserIds = [];
-      }
-  
-      setselectedUserIds(newselectedUserIds);
-    };
-  
-    const handleSelectOne = (event, id) => {
-      const selectedIndex = selectedUserIds.indexOf(id);
-      let newselectedUserIds = [];
-  
-      if (selectedIndex === -1) {
-        newselectedUserIds = newselectedUserIds.concat(selectedUserIds, id);
-      } else if (selectedIndex === 0) {
-        newselectedUserIds = newselectedUserIds.concat(selectedUserIds.slice(1));
-      } else if (selectedIndex === selectedUserIds.length - 1) {
-        newselectedUserIds = newselectedUserIds.concat(selectedUserIds.slice(0, -1));
-      } else if (selectedIndex > 0) {
-        newselectedUserIds = newselectedUserIds.concat(
-          selectedUserIds.slice(0, selectedIndex),
-          selectedUserIds.slice(selectedIndex + 1)
-        );
-      }
-  
-      setselectedUserIds(newselectedUserIds);
-    };
-  */
+
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -98,113 +84,19 @@ const Results = (props) => {
   };
 
   return (
+
     <Card
 
     >
       <Box>
         {showForm && <EditForm roles={props.roles} user={selectedUserId} updateUser={props.updateUser} />}
       </Box>
+      <div style={{ height: 500, width: '100%' }}>
+        <DataGrid Height="Auto" rows={props.users} columns={columns} rowsPerPageOptions={[5, 10, 25]} pageSize={5} checkboxSelection />
+      </div>
 
-      <PerfectScrollbar>
-        <Box minWidth={800}>
-          <Table>
-            <TableHead>
-              <TableRow>
-
-                <TableCell >
-                  <TableSortLabel onClick={() => handleSort('name')} >Name</TableSortLabel>
-
-                </TableCell>
-                <TableCell>
-                  Username
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-                <TableCell>
-                  Role
-                </TableCell>
-
-                <TableCell>
-                  Supervisor
-                </TableCell>
-                <TableCell>
-                  Creation date
-                </TableCell>
-                <TableCell>Delete User</TableCell>
-                <TableCell>Update User</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.users.slice(page * limit, page * limit + limit).map((user) => (
-                <TableRow
-                  hover
-                  key={user.userId}
-                  selected={selectedUserIds.indexOf(user.userId) !== -1}
-                >
-
-                  <TableCell>
-                    <Box
-                      alignItems="center"
-                      display="flex"
-                    >
-                      <Avatar
-                        className={classes.avatar}
-                        src={user.avatarUrl}
-                      >
-                        {getInitials(user.lastName + " " + user.firstName)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {user.lastName} {user.firstName}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {user.username}
-                  </TableCell>
-                  <TableCell>
-                    {user.email}
-                  </TableCell>
-                  <TableCell>
-                    {user.role.name}
-                  </TableCell>
-                  <TableCell>
-                    {user.supervisor != null && <span>{user.supervisor.username}</span> || <span> No-Supervisor</span>}
-                  </TableCell>
-                  <TableCell>
-                    {moment(user.createdDate).format('DD/MM/YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    <IconButton aria-label="delete" onClick={() => props.deleteUser(user.userId)} >
-
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton aria-label="Edit" onClick={() => SetUserEdit(user)} >
-
-                      <EditIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={props.users.length}
-        onChangePage={handlePageChange}
-        onChangeRowsPerPage={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
     </Card>
+
   );
 };
 
