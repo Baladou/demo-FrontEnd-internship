@@ -1,29 +1,16 @@
 import {
-  Avatar,
   Box,
   Card,
-  makeStyles, Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-
-
-  TableSortLabel, Typography
+  makeStyles
 } from '@material-ui/core';
+import { DataGrid } from '@material-ui/data-grid';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import EditForm from './EditForm';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import getInitials from '../../../utils/getInitials';
-import EditForm from './EditForm';
 
-
-import { DataGrid } from '@material-ui/data-grid';
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'First name', width: 130 },
@@ -41,7 +28,6 @@ const columns = [
     width: 200,
 
   },
-
 
 ];
 
