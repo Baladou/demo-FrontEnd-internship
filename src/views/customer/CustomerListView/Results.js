@@ -7,30 +7,14 @@ import { DataGrid } from '@material-ui/data-grid';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import EditForm from './EditForm';
+import Button from "@material-ui/core/Button";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  { field: 'username', headerName: 'username', width: 130 },
-  { field: 'email', headerName: 'Email', width: 200 },
-  {
-    field: 'rolename',
-    headerName: 'Role Name',
-    width: 130
-  },
-  {
-    field: 'supervisorUsername',
-    headerName: 'Supervisor Username',
-    width: 200,
-
-  },
-
-];
-
+function getID(params) {
+  console.log(getID)
+  return `${params.getValue('userId')}`;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -57,6 +41,60 @@ const Results = (props) => {
     user.supervisorUsername = (user.supervisor ? user.supervisor.username : 'No-supervisor');;
   })
   //console.log(selectionModel)
+  const columns = [
+
+    { field: 'userId', headerName: 'ID', width: 70 },
+    { field: 'firstName', headerName: 'First name', width: 130 },
+    { field: 'lastName', headerName: 'Last name', width: 130 },
+    { field: 'username', headerName: 'username', width: 130 },
+    { field: 'email', headerName: 'Email', width: 200 },
+    {
+      field: 'rolename',
+      headerName: 'Role Name',
+      width: 130
+    },
+    {
+      field: 'supervisorUsername',
+      headerName: 'Supervisor Username',
+      width: 200,
+
+    },
+    {
+      field: "",
+      headerName: "Edit Or Delete User",
+      sortable: false,
+      width: 180,
+      disableClickEventBubbling: true,
+      renderCell: (params) => (
+
+        <div>
+          <IconButton color='secondary'
+            onClick={() => {
+              const api = params.api;
+              const fields = api
+                .getAllColumns()
+                .map((c) => c.field)
+                .filter((c) => c !== "__check__" && !!c);
+              const thisRow = {};
+
+              fields.forEach((f) => {
+                thisRow[f] = params.getValue(f);
+              });
+              SetUserEdit(thisRow)
+
+
+            }}>
+            <EditIcon />
+          </IconButton >
+          <IconButton onClick={() => props.deleteUser(params.getValue('userId'))} >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      )
+    }
+
+  ];
+
 
 
 
@@ -68,13 +106,13 @@ const Results = (props) => {
       <Box>
         {showForm && <EditForm roles={props.roles} user={selectedUserId} updateUser={props.updateUser} />}
       </Box>
-      <div style={{ height: 500, width: '100%' }}>
+      <div style={{ height: 400, width: '100%' }}>
         <DataGrid Height="Auto"
           rows={props.users}
           columns={columns}
           rowsPerPageOptions={[5, 10, 25]}
           pageSize={5}
-          checkboxSelection
+
           onSelectionModelChange={(newSelection) => {
             setSelectionModel(newSelection.selectionModel);
           }}

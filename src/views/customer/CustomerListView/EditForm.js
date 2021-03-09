@@ -24,8 +24,8 @@ class EditForm extends React.Component {
             firstName: this.props.user.firstName,
             lastName: this.props.user.lastName,
             email: this.props.user.email,
-            roleName: this.props.user.role.name,
-            supervisorUserName: (this.props.user.supervisor ? this.props.user.supervisor.username : null)
+            roleName: this.props.user.rolename,
+            supervisorUserName: (this.props.user.supervisorUsername ? this.props.user.supervisorUsername : null)
         }
 
 
