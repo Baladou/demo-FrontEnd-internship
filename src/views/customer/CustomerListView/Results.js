@@ -43,7 +43,7 @@ const Results = (props) => {
   //console.log(selectionModel)
   const columns = [
 
-    { field: 'userId', headerName: 'ID', width: 70 },
+    { field: 'userId', headerName: 'ID', width: 100 },
     { field: 'firstName', headerName: 'First name', width: 130 },
     { field: 'lastName', headerName: 'Last name', width: 130 },
     { field: 'username', headerName: 'username', width: 130 },
@@ -51,7 +51,7 @@ const Results = (props) => {
     {
       field: 'rolename',
       headerName: 'Role Name',
-      width: 130
+      width: 150
     },
     {
       field: 'supervisorUsername',
