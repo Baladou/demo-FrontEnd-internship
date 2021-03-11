@@ -7,43 +7,26 @@ import Results from './Results';
 import Toolbar from './Toolbar';
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Test from './test'
 import { getUsers, postUser, deleteUser, updateUser } from '../../../redux/actions/usersActions';
 import { getRoles } from '../../../redux/actions/rolesActions';
 
-
-
-
-
-class CustomerListView extends Component {
+class UserView extends Component {
   componentDidMount() {
     this.props.getUsers()
     this.props.getRoles()
-
-
   }
   componentDidUpdate() {
     this.props.getUsers()
-    //this.props.getRoles()
-
-
   }
   render() {
-    /* const { users } = this.props.users
-     const { roles } = this.props.roles
-     const { errMessAddUser } = this.props.errMessAddUser*/
-    //console.log(this.props.users.errMessAddUser)
-
     return (
-      <Page
-        title="Users"
-      >
+      <Page title="Users">
         <Container maxWidth={false}>
           <Toolbar users={this.props.users.users} postUser={this.props.postUser} roles={this.props.roles.roles} errMessAddUser={this.props.users.errMessAddUser} />
           <Box mt={3}>
             <Results users={this.props.users.users} deleteUser={this.props.deleteUser} updateUser={this.props.updateUser} roles={this.props.roles.roles}></Results>
-
           </Box>
+
         </Container>
       </Page>
     )
@@ -68,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerListView)
+export default connect(mapStateToProps, mapDispatchToProps)(UserView)

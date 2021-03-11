@@ -31,14 +31,12 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
     role: { name: roleName },
     supervisor: { username: supervisorUserName }
   };
-
   return axios({
     method: "POST",
     url: "http://localhost:8084/api/users",
     data: newUser
   }).then(response => {
     console.log(response.data);
-
     if (response.data.status == 201) {
       dispatch(addUserSuccess(response.data.result))
       alert("user created successfully")
@@ -50,27 +48,12 @@ export const postUser = (username, firstName, lastName, email, roleName, supervi
       console.log(err);
       alert("Error " + err.response)
     })
-
-
-
-
-
 };
-
 export const addUserSuccess = (user) => ({
   type: ActionTypes.ADD_USER,
   payload: user
 });
-
-function addUserFailed(err) {
-  return {
-    type: ActionTypes.ADD_USER_ERROR,
-    payload: err
-  }
-}
 export const deleteUser = (id) => (dispatch) => {
-
-
   return axios({
     method: "DELETE",
     url: `http://localhost:8084/api/users/${id}`
@@ -125,4 +108,13 @@ export const updateUser = (id, username, firstName, lastName, email, roleName, s
 
 
 };
+
+
+export const fetchUsers = users => ({
+  type: ActionTypes.FETCH_USERS,
+  payload: users,
+});
+export const fetchUsersReq = () => ({
+  type: ActionTypes.FETCH_USERS_REQUEST
+});
 

@@ -1,5 +1,3 @@
-
-
 import {
   Box,
   Button,
@@ -10,6 +8,7 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import React from 'react';
@@ -31,24 +30,20 @@ class UserForm extends React.Component {
 
   }
 
-  onUsernameChange(event) {
-    this.setState({ username: event.target.value })
-  }
-  onFirstNameChange(event) {
-    this.setState({ firstName: event.target.value })
-  }
-  onLastNameChange(event) {
-    this.setState({ lastName: event.target.value })
-  }
-
-  onEmailChange(event) {
-    this.setState({ email: event.target.value })
-  }
   onRoleNameChange(event) {
+    console.log(event.target.value);
     this.setState({ roleName: event.target.value })
   }
   onSupervisorUserNameChange(event) {
     this.setState({ supervisorUserName: event.target.value })
+  }
+
+  handleChange(evt) {
+    const value = evt.target.value;
+    this.setState({
+      ...this.state,
+      [evt.target.name]: value
+    });
   }
 
   /////////////////
@@ -79,8 +74,10 @@ class UserForm extends React.Component {
 
     return (
 
-      <form
+      <ValidatorForm
         onSubmit={this.handleSubmit.bind(this)} method="POST"
+        ref="form"
+        onError={errors => console.log(errors)}
       >
         <Card>
           <CardHeader
@@ -102,7 +99,7 @@ class UserForm extends React.Component {
                   fullWidth
                   label="Username"
                   name="username"
-                  onChange={this.onUsernameChange.bind(this)}
+                  onChange={this.handleChange.bind(this)}
                   value={this.state.username}
                   required
                   variant="outlined"
@@ -114,15 +111,16 @@ class UserForm extends React.Component {
                 md={6}
                 xs={12}
               >
-                <TextField
+                <TextValidator
                   fullWidth
-
                   label="Email"
+                  onChange={this.handleChange.bind(this)}
                   name="email"
-                  required
-                  onChange={this.onEmailChange.bind(this)}
                   value={this.state.email}
                   variant="outlined"
+                  required
+                  validators={['required', 'isEmail']}
+                  errorMessages={['this field is required', 'email is not valid']}
                 />
               </Grid>
               <Grid
@@ -134,7 +132,7 @@ class UserForm extends React.Component {
                   fullWidth
                   label="Lastname"
                   name="lastName"
-                  onChange={this.onLastNameChange.bind(this)}
+                  onChange={this.handleChange.bind(this)}
                   value={this.state.lastName}
                   variant="outlined"
                 />
@@ -148,7 +146,7 @@ class UserForm extends React.Component {
                   fullWidth
                   label="Firstname"
                   name="firstName"
-                  onChange={this.onFirstNameChange.bind(this)}
+                  onChange={this.handleChange.bind(this)}
                   value={this.state.firstName}
                   variant="outlined"
                 />
@@ -185,7 +183,7 @@ class UserForm extends React.Component {
                 md={6}
                 xs={12}
               >
-                <FormControl variant="outlined" fullWidth required >
+                <FormControl variant="outlined" fullWidth  >
                   <InputLabel id="demo-simple-select-filled-label">Supervisor username</InputLabel>
                   <Select
 
@@ -199,7 +197,7 @@ class UserForm extends React.Component {
 
                   >
                     {this.props.users.map((user) => (
-                      <MenuItem value={user.username}>{user.username}</MenuItem>
+                      <MenuItem value={user.username}>{user.username}: {user.role.name}</MenuItem>
 
 
                     ))}
@@ -229,7 +227,7 @@ class UserForm extends React.Component {
 
 
         </Card>
-      </form>
+      </ValidatorForm>
     );
   }
 }
