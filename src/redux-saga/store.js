@@ -1,7 +1,7 @@
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import userReducer from './reducers/usersReducer';
+import { users } from './reducers/usersReducer';
 import { fetchUsersSaga } from './sagas';
 
 function* saga() {
@@ -12,7 +12,7 @@ function* saga() {
 
 const sagaMiddleware = createSagaMiddleware();
 const reducer = combineReducers({
-    userReducer,
+    users,
 });
 
 export default createStore(

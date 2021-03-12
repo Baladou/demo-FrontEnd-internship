@@ -6,7 +6,7 @@ export const fetchUsers = () => ({
 
 export const receiveUsersSuccess = (users) => ({
     type: RECEIVE_USERS_SUCCESS,
-    users,
+    payload: users
 });
 
 export const receiveUsersFailure = (error) => ({

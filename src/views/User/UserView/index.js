@@ -7,6 +7,7 @@ import { fetchUsers } from '../../../redux-saga/actionCreators/users';
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import Results from './Results';
 
 
 
@@ -16,18 +17,14 @@ class UserView extends Component {
 
 
   componentDidMount() {
+    this.props.getUsers()
 
   }
   componentDidUpdate() {
 
   }
   render() {
-    const {
-
-
-
-    } = this.props;
-
+    //console.log("get " + this.props.users)
     return (
       <Page title="Users">
         <Container maxWidth={false}>
@@ -35,6 +32,7 @@ class UserView extends Component {
           <Box mt={3}>
 
           </Box>
+          <Results users={this.props.users.users} />
 
         </Container>
       </Page>
@@ -43,15 +41,17 @@ class UserView extends Component {
 }
 
 function mapStateToProps(state) {
+  // console.log(state.users.users)
   return {
-    state
+    users: state.users
   }
+
 }
 
 function mapDispatchToProps(dispatch) {
-  getUsers: () => dispatch(fetchUsers())
+
 }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserView)
+export default connect(mapStateToProps, { getUsers: fetchUsers })(UserView)
