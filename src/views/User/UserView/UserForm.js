@@ -52,6 +52,7 @@ class UserForm extends React.Component {
 
 
   handleSubmit(event) {
+    console.log("test post")
     event.preventDefault();
     this.props.postUser(this.state.username, this.state.firstName, this.state.lastName, this.state.email, this.state.roleName,
       this.state.supervisorUserName);
