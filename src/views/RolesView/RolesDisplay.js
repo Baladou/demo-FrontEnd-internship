@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
 
   Box,
 
   Card,
   CardHeader,
-  Checkbox,
-  Table,
+  makeStyles, Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
-  makeStyles
+  Typography
 } from '@material-ui/core';
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import EditIcon from '@material-ui/icons/Edit';
+import EditRoleForm from './EditRoleForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -28,44 +27,53 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RolesDisplay = ({ className, roles, ...rest }) => {
+const RolesDisplay = (props) => {
   const classes = useStyles();
   const [selectedroleIds, setselectedroleIds] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
+  const [selectedRole, setselectedRole] = useState({});
+  const [showForm, setShowform] = useState(false)
 
-  const handleSelectAll = (event) => {
-    let newselectedroleIds;
+  const SetRoleEdit = (role) => {
+    setShowform(!showForm);
+    setselectedRole(role)
 
-    if (event.target.checked) {
-      newselectedroleIds = roles.map((role) => role.id);
-    } else {
-      newselectedroleIds = [];
-    }
+  }
+  /*$
 
-    setselectedroleIds(newselectedroleIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedroleIds.indexOf(id);
-    let newselectedroleIds = [];
-
-    if (selectedIndex === -1) {
-      newselectedroleIds = newselectedroleIds.concat(selectedroleIds, id);
-    } else if (selectedIndex === 0) {
-      newselectedroleIds = newselectedroleIds.concat(selectedroleIds.slice(1));
-    } else if (selectedIndex === selectedroleIds.length - 1) {
-      newselectedroleIds = newselectedroleIds.concat(selectedroleIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newselectedroleIds = newselectedroleIds.concat(
-        selectedroleIds.slice(0, selectedIndex),
-        selectedroleIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setselectedroleIds(newselectedroleIds);
-  };
-
+    const handleSelectAll = (event) => {
+      let newselectedroleIds;
+  
+      if (event.target.checked) {
+        newselectedroleIds = roles.map((role) => role.id);
+      } else {
+        newselectedroleIds = [];
+      }
+  
+      setselectedroleIds(newselectedroleIds);
+    };
+  /*
+    const handleSelectOne = (event, id) => {
+      const selectedIndex = selectedroleIds.indexOf(id);
+      let newselectedroleIds = [];
+  
+      if (selectedIndex === -1) {
+        newselectedroleIds = newselectedroleIds.concat(selectedroleIds, id);
+      } else if (selectedIndex === 0) {
+        newselectedroleIds = newselectedroleIds.concat(selectedroleIds.slice(1));
+      } else if (selectedIndex === selectedroleIds.length - 1) {
+        newselectedroleIds = newselectedroleIds.concat(selectedroleIds.slice(0, -1));
+      } else if (selectedIndex > 0) {
+        newselectedroleIds = newselectedroleIds.concat(
+          selectedroleIds.slice(0, selectedIndex),
+          selectedroleIds.slice(selectedIndex + 1)
+        );
+      }
+  
+      setselectedroleIds(newselectedroleIds);
+    };
+  */
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -77,49 +85,38 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
   return (
 
     <Card
-      className={clsx(classes.root, className)}
-      {...rest}
+
     >
+      <Box>
+        {showForm && <EditRoleForm role={selectedRole} updateRole={props.updateRole} />}
+      </Box>
       <CardHeader title="Roles" />
       <PerfectScrollbar>
         <Box minWidth={800}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedroleIds.length === roles.length}
-                    color="primary"
-                    indeterminate={
-                      selectedroleIds.length > 0
-                      && selectedroleIds.length < roles.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
+
                 <TableCell>
                   Role ID
                 </TableCell>
                 <TableCell>
                   Role Name
                 </TableCell>
-
+                <TableCell>
+                  Delete Role
+                </TableCell>
+                <TableCell>Update User</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {roles.slice(page * limit, page * limit + limit).map((role) => (
+              {props.roles.slice(page * limit, page * limit + limit).map((role) => (
                 <TableRow
                   hover
                   key={role.roleId}
                   selected={selectedroleIds.indexOf(role.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedroleIds.indexOf(role.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, role.id)}
-                      value="true"
-                    />
-                  </TableCell>
+
                   <TableCell>
                     <Box
                       alignItems="center"
@@ -137,7 +134,17 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
                   <TableCell>
                     {role.name}
                   </TableCell>
+                  <TableCell>
+                    <IconButton aria-label="delete" onClick={() => props.deleteRole(role.id)} >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton aria-label="Edit" onClick={() => SetRoleEdit(role)} >
 
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -146,7 +153,7 @@ const RolesDisplay = ({ className, roles, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={roles.length}
+        count={props.roles.length}
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleLimitChange}
         page={page}

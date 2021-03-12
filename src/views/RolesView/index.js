@@ -9,7 +9,7 @@ import RolesDisplay from './RolesDisplay';
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RoleForm from './RoleForm';
-import { getRoles, postRole } from '../../redux/actions/rolesActions';
+import { getRoles, postRole, deleteRole, updateRole } from '../../redux/actions/rolesActions';
 
 
 
@@ -18,7 +18,12 @@ import { getRoles, postRole } from '../../redux/actions/rolesActions';
 class RolesView extends Component {
   componentDidMount() {
     this.props.getRoles()
-    //console.log( this.props.getUsers())
+
+
+  }
+  componentDidUpdate() {
+    this.props.getRoles()
+
 
   }
   render() {
@@ -59,7 +64,7 @@ class RolesView extends Component {
               xs={12}
             >
               <Box mt={3}>
-                <RolesDisplay roles={roles} />
+                <RolesDisplay roles={roles} deleteRole={this.props.deleteRole} updateRole={this.props.updateRole} />
               </Box>
             </Grid>
           </Grid>
@@ -75,6 +80,9 @@ const mapStateToProps = (state) => ({ roles: state.roles })
 const mapDispatchToProps = dispatch => ({
   getRoles: () => dispatch(getRoles()),
   postRole: (name) => dispatch(postRole(name)),
+  deleteRole: (id) => dispatch(deleteRole(id)),
+  deleteRole: (id) => dispatch(deleteRole(id)),
+  updateRole: (id, name) => dispatch(updateRole(id, name)),
 
 });
 

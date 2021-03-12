@@ -29,15 +29,14 @@ export const postRole = (name) => (dispatch) => {
     url: "http://localhost:8084/api/roles",
     data: newRole
   }).then(response => {
-    if (response.status == 201) {
-      return response;
-    } else {
-      var error = new Error('Error ' + response.status + ': ' + response.statusText);
-      error.response = response;
-      throw error;
-    }
-  })
+    console.log(response.data);
 
+    if (response.data.status == 201) {
+      dispatch(addRole(response.data.result))
+      alert("Role created successfully")
+    }
+    else if (response.data.status == 400) { alert("Error: " + response.data.result.message) }
+  })
 };
 
 export const addRole = (role) => ({
@@ -45,3 +44,49 @@ export const addRole = (role) => ({
   payload: role
 });
 
+export const deleteRole = (id) => (dispatch) => {
+
+  console.log("test red")
+  return axios({
+    method: "DELETE",
+    url: `http://localhost:8084/api/roles/${id}`
+  }).then(response => {
+    console.log(response.data);
+
+    if (response.data.status == 200) {
+      //dispatch(deleteRole(response.data.result))
+      alert("Role deleted  successfully")
+    }
+    else if (response.data.status == 400) { alert("Error: " + response.data.result.message) }
+  })
+};
+
+export const updateRole = (id, name) => (dispatch) => {
+
+  const newRole = {
+    name: name
+  };
+
+  return axios({
+    method: "PUT",
+    url: `http://localhost:8084/api/roles/${id}`,
+    data: newRole
+  }).then(response => {
+
+
+    if (response.data.status == 200) {
+
+      alert("user Updated successfully")
+    }
+    else if (response.data.status == 400) {
+      alert("Error:  " + response.data.result.message)
+    }
+    else { alert("Error:  " + response.data.status + " " + response.data.result.message) }
+  })
+    .catch(err => {
+      //console.log(err);
+      alert("Error: " + err.response)
+    })
+
+
+};
